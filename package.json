@@ -1,0 +1,19 @@
+{
+  "name": "anchor-migrate",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "^1.3.5",
+    "vite": "^7.3.0",
+    "vitest": "^4.0.16"
+  },
+  "peerDependencies": {
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "ts-morph": "^27.0.2",
+    "utility-types": "^3.11.0"
+  },
+  "scripts": {
+    "t": "vitest"
+  }
+}
