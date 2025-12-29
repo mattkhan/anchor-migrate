@@ -21,6 +21,22 @@ export function removeConvertedRelationships(sourceFile: SourceFile) {
   if (!Node.isTypeLiteral(modelNode)) return;
   if (!Node.isTypeLiteral(overrideNode)) return;
 
-  convertRelationships({ g: modelNode, m: overrideNode });
+  const { hasMissing } = convertRelationships({
+    g: modelNode,
+    m: overrideNode,
+  });
+
+  const importDecl = sourceFile
+    .getImportDeclarations()
+    .find((d) => d.getModuleSpecifierValue() === "./shared.custom")!;
+
+  if (hasMissing) {
+    const hasOmitted = importDecl
+      .getNamedImports()
+      .some((x) => x.getName() === "Omitted");
+
+    if (!hasOmitted) importDecl.addNamedImport("Omitted");
+  }
+
   return sourceFile;
 }

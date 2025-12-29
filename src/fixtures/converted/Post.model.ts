@@ -8,17 +8,19 @@ type Model = {
   text: unknown;
   relationships: {
     comments: Comment[];
+    favoriteComments: Comment[];
   };
 };
 
 // END AUTOGEN
-import { ModelOverride } from "./shared.custom";
+import { ModelOverride, Omitted } from "./shared.custom";
 
 type Override = Identity<{
   type: string;
   text: string;
   relationships: {
     user: User;
+    favoriteComments: Omitted;
   };
 }>;
 type Post = ModelOverride<Model, Override>;

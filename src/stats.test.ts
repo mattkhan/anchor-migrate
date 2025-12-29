@@ -35,7 +35,7 @@ const stats = {
       intersecting: 2,
     },
     relationships: {
-      omitted: 0,
+      omitted: 1,
       missing: 1,
       intersecting: 0,
     },

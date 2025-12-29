@@ -8,6 +8,7 @@ type Model = {
   text: unknown;
   relationships: {
     comments: Comment[];
+    favoriteComments: Comment[];
   };
 };
 
