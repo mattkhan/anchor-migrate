@@ -1,7 +1,12 @@
 import { Node, TypeLiteralNode } from "ts-morph";
 import { propertyAssignable } from "./utils";
 
-type ConvertArgs = { g: TypeLiteralNode; m: TypeLiteralNode };
+type ConvertArgs = {
+  /** The generated node. */
+  g: TypeLiteralNode;
+  /** The manual node. */
+  m: TypeLiteralNode;
+};
 
 export function convertRelationships({ g, m }: ConvertArgs) {
   const gRel = g.getProperty("relationships");
@@ -17,6 +22,12 @@ export function convertRelationships({ g, m }: ConvertArgs) {
   return convertAttributes({ g: gRelNode, m: mRelNode });
 }
 
+/**
+ * From `m`, the manual node, `convertAttributes`:
+ * - removes properties with the same type in the generated node
+ * - adds an `Omitted` property if the property is in `g` and not in `m`
+ *   `relationships` property is excluded in these operations
+ * */
 export function convertAttributes({ g, m }: ConvertArgs) {
   const generatedProperties = g
     .getProperties()
@@ -49,5 +60,8 @@ export function convertAttributes({ g, m }: ConvertArgs) {
   const hasMissing = handleMissing();
   removeMatches();
 
-  return { hasMissing };
+  return {
+    /** Useful to let caller know `Omitted` should be imported. */
+    hasMissing,
+  };
 }

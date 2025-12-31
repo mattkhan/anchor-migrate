@@ -61,10 +61,8 @@ export function propertyAssignable({
   const propertiesAssignable = (a: TypeLiteralNode, b: TypeLiteralNode) => {
     return a
       .getProperties()
-      .reduce(
-        (acc, elem) =>
-          acc && propertyAssignable({ t: a, u: b, prop: elem.getName() }),
-        true,
+      .every((elem) =>
+        propertyAssignable({ t: a, u: b, prop: elem.getName() }),
       );
   };
 
